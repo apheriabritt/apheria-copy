@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:apheria/newTransferScreen.dart';
-
+import 'package:apheria/secureInfo/secureInfo.dart';
 //packages
 
 //firebase
@@ -56,12 +56,10 @@ bool signout = false;
 String apheriaVersion = '';
 bool newUser = false;
 
-  var vertex_instance =
-          FirebaseVertexAI.instanceFor(auth: FirebaseAuth.instance);
-      GenerativeModel violet = vertex_instance.generativeModel(
-  
-  model: 'gemini-1.5-flash',
- /* safetySettings: [
+var vertex_instance = FirebaseVertexAI.instanceFor(auth: FirebaseAuth.instance);
+GenerativeModel violet = vertex_instance.generativeModel(
+    model: 'gemini-1.5-flash',
+    /* safetySettings: [
     SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.none),
         SafetySetting(HarmCategory.harassment, HarmBlockThreshold.none),
     SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.none),
@@ -69,18 +67,17 @@ bool newUser = false;
     SafetySetting(HarmCategory.unspecified, HarmBlockThreshold.low)
 
     ],*/
- // apiKey: 'AIzaSyA5GBFzpxU3hvhg429y2yNORphZJ0be6oo',
-  // safetySettings: Adjust safety settings
-  // See https://ai.google.dev/gemini-api/docs/safety-settings
-  generationConfig: GenerationConfig(
-    temperature: 2,
-    topK: 20,
-    topP: 0.95,
-    maxOutputTokens: 8192,
-    responseMimeType: 'text/plain',
-  ),
-  systemInstruction: Content.system(
-violet_context));
+
+    // safetySettings: Adjust safety settings
+    // See https://ai.google.dev/gemini-api/docs/safety-settings
+    generationConfig: GenerationConfig(
+      temperature: 2,
+      topK: 20,
+      topP: 0.95,
+      maxOutputTokens: 8192,
+      responseMimeType: 'text/plain',
+    ),
+    systemInstruction: Content.system(violet_context));
 
 class IAPConnection {
   static InAppPurchase? _instance;
@@ -150,7 +147,7 @@ Future<void> main() async {
       options: FirebaseOptions(
           projectId: 'apheria-cf0b7',
           messagingSenderId: '470759388311',
-          apiKey: 'AIzaSyALIOA_-9-V34RaTDn7pUCKBG51XgRLhu0',
+          apiKey: firebaseAPIKey,
           appId: '1:470759388311:android:639a68d6ec93465f4165d2')
       //  options: DefaultFirebaseOptions.currentPlatform,
 
@@ -233,9 +230,8 @@ class _MyAppState extends State<MyApp> {
                   bodyColor: Colors.white,
                   displayColor: Colors.white,
                 )),
-        home:
-            VioletAISignIn());
-            //SignInPage(false));
+        home: VioletAISignIn());
+    //SignInPage(false));
     //InAppPurchasePage(title:'iaps'));
   }
 }
