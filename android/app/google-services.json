@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "470759388311",
+    "project_id": "apheria-cf0b7",
+    "storage_bucket": "apheria-cf0b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470759388311:android:639a68d6ec93465f4165d2",
+        "android_client_info": {
+          "package_name": "uk.co.apheria.apheria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470759388311-ce6peu4o4fc98cn60mme50daii5pci4r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uk.co.apheria.apheria",
+            "certificate_hash": "eee41242327a19bea87559ba47bce6ac0c0e4074"
+          }
+        },
+        {
+          "client_id": "470759388311-6s8heagta3dghk85hhjnlfm9vit8qstj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALIOA_-9-V34RaTDn7pUCKBG51XgRLhu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "470759388311-6s8heagta3dghk85hhjnlfm9vit8qstj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-2075277328799016~5086378987"
+    }
+  ],
+  "configuration_version": "1"
+}
