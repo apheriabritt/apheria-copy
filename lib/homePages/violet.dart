@@ -7,6 +7,30 @@ import 'package:firebase_vertexai/firebase_vertexai.dart';
 import 'dart:io';
 import 'package:apheria/main.dart';
 
+Future<String> askViolet(String question,int length,String error) async {
+  String result = '';
+  try {
+    final chat = violet.startChat();
+    final content = Content.text('$question - under $length characters');
+
+    final response = await chat.sendMessage(content);
+
+    result = response.text!;
+    result = result
+        .replaceAll(
+          RegExp(r'\n+'),
+          '\n',
+        )
+        .trim();
+  } catch (e) {
+    result = error;
+    // intro=intro.replaceAll(RegExp(r'\n+'), '\n',).trim();
+  }
+
+  return result;
+}
+
+
 class VioletCard extends StatefulWidget {
   const VioletCard({super.key});
 

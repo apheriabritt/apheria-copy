@@ -1,9 +1,14 @@
 import 'package:apheria/constants.dart';
+import 'package:apheria/homePages/apheriaCollabs.dart';
+import 'package:apheria/homePages/discountCodes.dart';
 import 'package:apheria/homePages/filesHomePage.dart';
+import 'package:apheria/homePages/playpasspoints.dart';
+import 'package:apheria/homePages/shootingStarPoints.dart';
 import 'package:apheria/main.dart';
 import 'package:apheria/newTransferScreen.dart';
 import 'package:apheria/services/analytics.dart';
 import 'package:apheria/widgets/starpoints.dart';
+import 'package:apheria/widgets/violetCard.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
@@ -455,7 +460,7 @@ class DashPurchases extends ChangeNotifier {
     }
     const ids = <String>{
       thousandSP
-    //  cluster, supergiant, supernova
+      //  cluster, supergiant, supernova
       //storeKeySubscription,
       // storeKeyUpgrade,
     };
@@ -612,7 +617,7 @@ class DashPurchases extends ChangeNotifier {
   Future<void> buy(PurchasableProduct product) async {
     final purchaseParam = PurchaseParam(productDetails: product.productDetails);
     switch (product.id) {
-     /* case cluster:
+      /* case cluster:
         await iapConnection.buyConsumable(purchaseParam: purchaseParam);
         break;
       case supergiant:
@@ -701,8 +706,6 @@ class DashCounter extends ChangeNotifier {
 
 ///////////
 
-
-
 class InAppPurchasePage extends StatefulWidget {
   @override
   State<InAppPurchasePage> createState() => _InAppPurchasePageState();
@@ -712,8 +715,6 @@ typedef PageBuilder = Widget Function();
 
 class _InAppPurchasePageState extends State<InAppPurchasePage> {
   int _selectedIndex = 0;
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -769,22 +770,27 @@ class _InAppPurchasePageState extends State<InAppPurchasePage> {
 
 /////
 ///
-Widget earnWidget(String name, int points, Function function) {
+Widget earnWidget(String name, String subtitle, int points, String link) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
     child: Card(
         elevation: 5,
-        color: Colors.white,
+        color: darkapheriapink,
         child: ListTile(
             onTap: () {
-              function();
+              launchUrl(Uri.parse(link));
+              starpoints = starpoints + 10;
+              updateStarPoints();
+              //  function();
               logEvent('sp_action',
                   {'action': 'earned_sp', 'brand': name, 'points': points});
             },
+            subtitle: Text(subtitle,
+                style: TextStyle(color: apherialemon, fontSize: 20)),
             leading: Text('$points ★',
                 style: TextStyle(color: apheriaamber, fontSize: 22)),
-            trailing: Icon(Icons.arrow_forward, color: darkapheriapink),
-            title: Text(name, style: TextStyle(color: apheriapink)))),
+            trailing: Icon(Icons.arrow_forward, color: apherialavender),
+            title: Text(name, style: TextStyle(color: Colors.white)))),
   );
 }
 
@@ -861,10 +867,10 @@ class _AdPageState extends State<AdPage> {
                               Uri URL = Uri.parse(url);
                               launchUrl(URL);
 
-  logEvent('sp_action',
-                  {'action': 'earn_ad_click', 'brand': title, });
-            
-
+                              logEvent('sp_action', {
+                                'action': 'earn_ad_click',
+                                'brand': title,
+                              });
                             },
                             child: Card(
                               elevation: 5,
@@ -1059,7 +1065,7 @@ class PurchasePage extends StatelessWidget {
         
                 ),*/
                     //Text(myproductid),
-                   /* Padding(
+                    /* Padding(
                       padding: const EdgeInsets.fromLTRB(12, 1, 12, 1),
                       child: Text('buy star points:'),
                     ),*/
@@ -1075,74 +1081,136 @@ class PurchasePage extends StatelessWidget {
                             currencyCode: 'test')),
                         onPressed: () {}),
                         */
+
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 1, 12, 1),
-                      child: Text('earn star points with apheria partners:'),
+                      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                      child: Card(
+                          elevation: 3,
+                          shape: curvedcard,
+                          color: darkapheriapink,
+                          child: ListTile(
+                            onTap: () {
+                              goTo(PlayPassPoints(), context);
+                            },
+                            trailing: Icon(Icons.keyboard_double_arrow_right,
+                                color: Colors.white),
+                            title: Text('how to buy star points for free',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20)),
+                          )),
                     ),
-                    earnWidget('preworn', 10, () {
-                      goTo(
-                          AdPage(
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                      child: Card(
+                          elevation: 3,
+                          shape: curvedcard,
+                          color: apherialemon,
+                          child: ListTile(
+                            onTap: () {
+                              goTo(ShootingStarPoints(), context);
+                            },
+                            trailing: Icon(Icons.keyboard_double_arrow_right,
+                                color: Colors.white),
+                            title: Text('shooting star points',
+                                style: TextStyle(
+                                    color: apheriapurple, fontSize: 20)),
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                      child: Card(
+                          elevation: 3,
+                          shape: curvedcard,
+                          color: apheriapurpletwo,
+                          child: ListTile(
+                            onTap: () {
+                              goTo(DiscountCodes(), context);
+                            },
+                            trailing: Icon(Icons.keyboard_double_arrow_right,
+                                color: Colors.white),
+                            title: Text('apheria discount codes!',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20)),
+                          )),
+                    ),
+                     Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                      child: Card(
+                          elevation: 3,
+                          shape: curvedcard,
+                          color: apheriagreen,
+                          child: ListTile(
+                            onTap: () {
+                              goTo(ApheriaCollabs(), context);
+                            },
+                            trailing: Icon(Icons.keyboard_double_arrow_right,
+                                color: Colors.white),
+                            title: Text('earn with apheria collabs',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20)),
+                          )),
+                    ),
+                     
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        color: apheriabluetwo.withOpacity(0.5),
+                        child: Column(
+                          children: [
+                            SizedBox(height:12),
+                            Text('apheria partners'),
+                            VioletSpeech(
+                                  'earn star points with apheria partners:',
+                            false,false),
+                            earnWidget(
                               'preworn',
-                              'images/cardImages/brands/banners/preworn2.jpg',
+                              'second hand clothing',
                               10,
                               'https://preworn.ltd/?ref=apheria',
-                              [
-                                'use code "apheria" for 10% off!',
-                                'largest second hand clothing seller in uk',
-                                'free uk shipping',
-                                'pay later available',
-                                '25% off with mailing list',
-                              ]),
-                          context);
-                    }),
-                    earnWidget('artDiscount', 10, () {
-                      goTo(
-                          AdPage(
+                            ),
+                            earnWidget(
                               'artDiscount',
-                              'images/cardImages/brands/banners/artDiscountBanner.png',
+                              'sketchbooks and posca pens',
                               10,
                               'https://click.linksynergy.com/link?id=EQENbhsOODA&offerid=674330.4382132950466871378&bids=674330.4382132950466871378&bids=674330.4382132950466871378&type=2&murl=https%3a%2f%2fartdiscount.co.uk%2fproducts%2fpink-pig-classic-square-sketchbooks%3fvariant%3d32950466871378&',
-                              [
-                                'pink pig sketchbooks',
-                                'made in Great Britain',
-                                'handmade silk covers',
-                                'acid free',
-                                'archival quality white cartridge paper'
-                              ]),
-                          context);
-                    }),
-                    earnWidget("crafter's companion", 10, () {
-                      goTo(
-                          AdPage(
+                            ),
+                            earnWidget(
                               "crafter's companion",
-                              'images/cardImages/brands/banners/craftcomp50.jpg',
+                              'paint pens, card and embroidery tools',
                               10,
                               'https://www.awin1.com/cread.php?s=3259192&v=5655&q=449547&r=1548542',
-                              [
-                                'leading players in the papercraft, colouring and needlecraft',
-                                ' innovative crafting tools and materials',
-                                'founded by UK dragon Sara Davies'
-                              ]),
-                          context);
-                    }),
-                    earnWidget('wave phone case', 10, () {
-                      goTo(
-                          AdPage(
+                            ),
+                            earnWidget(
                               'wave phone case',
-                              'images/cardImages/brands/banners/diyWaveBanner.png',
+                              'environmentally friendly phone case',
                               10,
                               'https://www.awin1.com/cread.php?awinmid=24785&awinaffid=1548542&clickref=apheria&ued=https%3A%2F%2Fwww.wavecase.co.uk%2Fcollections%2Fall',
-                              [
-                                'phone cases made from biodegradeable wheat straw',
-                                'proud member of 1% for the planet',
-                                'simple + sustainable packaging',
-                                'surfers against sewage 250 club',
-                                'carbon neutral shipping',
-                                'return old wave case for discount on new one'
-                              ]),
-                          context);
-                    }),
-                   /* earnWidget('broken society', 10, () {
+                            ),
+                            earnWidget(
+                              'inkbox (amazon)',
+                              'freehand tattoo marker',
+                              10,
+                              'https://amzn.to/3YCDstM',
+                            ),
+                             
+                            earnWidget(
+                              'pop socket (amazon)',
+                              'envrionmentally friendly phone grip',
+                              10,
+                                  'https://amzn.to/4f1dQwf'
+                            ),
+                             earnWidget(
+                              'jungle culture',
+                              'sustainable homeware',
+                              10,
+                              'https://www.awin1.com/cread.php?awinmid=26152&awinaffid=1548542&ued=https%3A%2F%2Fjungleculture.eco%2F',
+                            ),
+                            SizedBox(height: 12)
+                          ],
+                        ),
+                      ),
+                    ),
+                    /* earnWidget('broken society', 10, () {
                       goTo(
                           AdPage(
                               'broken society',
@@ -1198,7 +1266,7 @@ class _PurchaseList extends StatelessWidget {
   Widget build(BuildContext context) {
     var purchases = context.watch<DashPurchases>();
     var products = purchases.products;
-        products.sort((a, b) => a.title.compareTo(b.title));
+    products.sort((a, b) => a.title.compareTo(b.title));
 
     return Column(
       children: products
@@ -1233,8 +1301,11 @@ class _PurchaseWidget extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             myproductid = product.id;
-             logEvent('sp_action',
-            {'action': 'sp_product_click', 'name': '1000 ★', 'points': 1000});
+            logEvent('sp_action', {
+              'action': 'sp_product_click',
+              'name': '1000 ★',
+              'points': 1000
+            });
             onPressed();
           },
           child: Card(
@@ -1250,19 +1321,21 @@ class _PurchaseWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius:40,
-                            child: Icon(Icons.star,color:darkapheriapink,size:33)
-                          ),
+                              backgroundColor: Colors.white,
+                              radius: 40,
+                              child: Icon(Icons.star,
+                                  color: darkapheriapink, size: 33)),
                           Column(
                             children: [
                               Card(
                                 color: darkapheriapink,
                                 child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(8, 1, 8, 1),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 1, 8, 1),
                                   child: Text(
                                     title,
-                                    style: TextStyle(color: Colors.white,fontSize: 25),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1300,10 +1373,6 @@ class _PurchaseWidget extends StatelessWidget {
   }
 }
 
-
-
-
-
 ///////////
 
 class CounterStateWidget extends StatelessWidget {
@@ -1330,7 +1399,6 @@ class CounterStateWidget extends StatelessWidget {
 }
 
 ///////////////
-
 
 class _UpgradeWidget extends StatelessWidget {
   final Upgrade upgrade;

@@ -7,6 +7,7 @@ import 'package:apheria/data/scenesData.dart';
 import 'package:apheria/homePages/AISignin.dart';
 import 'package:apheria/main.dart';
 import 'package:apheria/widgets/filecardui.dart';
+import 'package:apheria/widgets/violetCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:firebase_vertexai/firebase_vertexai.dart';
@@ -150,27 +151,12 @@ img.Image newimage = img.decodeImage(
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: apheriaAppBar(context, 'creation builder'),
-        backgroundColor: apherialilac,
+        backgroundColor: apheriapurple,
         body: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(12, 12, 12, 2),
-              child: Card(
-                shape: curvedcard,
-                elevation: 5,
-                child: Padding(
-                  padding: const EdgeInsets.all(1.0),
-                  child: Card(
-                    color: darkapheriapink,
-                    child: ListTile(
-                        leading:
-                            Image.asset('images/icon/violet.png', height: 100),
-                        title: Text("violet's creation builder",
-                            style: TextStyle(color: Colors.white))),
-                  ),
-                ),
-              ),
-            ),
+            VioletSpeech('welcome to my creation builder!'
+          ,false,false),
+            
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Card(

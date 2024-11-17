@@ -52,8 +52,8 @@ android {
         applicationId "uk.co.apheria.apheria"
         minSdkVersion 23
         targetSdkVersion 34
-        versionCode 1580                                                                                             
-        versionName '15.8.0'
+        versionCode 1581                                                                                             
+        versionName '15.8.1'
     }
 
    

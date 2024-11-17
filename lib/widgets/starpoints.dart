@@ -73,7 +73,8 @@ class starPointCounter extends StatefulWidget {
   String location;
   bool extra = false;
   @override
-  State<starPointCounter> createState() => _starPointCounterState(this.location);
+  State<starPointCounter> createState() =>
+      _starPointCounterState(this.location);
 }
 
 class _starPointCounterState extends State<starPointCounter> {
@@ -104,14 +105,16 @@ class _starPointCounterState extends State<starPointCounter> {
         button: true,
         child: GestureDetector(
           onTap: () {
-           // if(location=='transfer_screen'||location=='files_home_page'){
+            // if(location=='transfer_screen'||location=='files_home_page'){
             logEvent('navigation_action', {'action': 'home_button_sp'});
-            goTo(InAppPurchasePage(),
-                context); 
-                //havent added functionality for counter from anywhere else
-            //}
+            if (location == 'sp_page') {
+            } else {
+              goTo(InAppPurchasePage(), context);
+              //havent added functionality for counter from anywhere else
+              //}
 
-           //better api fingers crossed than the other one that was causing the grey screen
+              //better api fingers crossed than the other one that was causing the grey screen
+            }
           },
           child: Card(
             shape: circlecard,
